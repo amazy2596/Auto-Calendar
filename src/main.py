@@ -220,11 +220,12 @@ def get_luogu_contest():
         # f.write(str(soup))
     # print(soup)22:35
 
+positions = []
+
 if __name__ == "__main__":
     url = "https://outlook.live.com/calendar/0/view/month"
     webbrowser.open(url, autoraise = True)
-    positions = []
-
+    
     dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(dir, '..', 'data')
     os.makedirs(dir, exist_ok=True)
