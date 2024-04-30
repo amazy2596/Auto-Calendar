@@ -235,9 +235,11 @@ if __name__ == "__main__":
         for line in file:
             x, y = line.strip().split(',')
             positions.append((int(x), int(y)))
+
     sleep(3)
-    # get_codeforces_contest()
-    # get_nowcoder_contest()
+    
+    get_codeforces_contest()
+    get_nowcoder_contest()
     get_atcoder_contest()
-    # get_luogu_contest()
+    get_luogu_contest()
     # get_lanqiao_contest()
