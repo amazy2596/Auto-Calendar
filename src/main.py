@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from datetime import date
 from urllib import parse
-# import pandas as pd
 import os
 import pyautogui
 import pyperclip
