@@ -33,7 +33,13 @@ def on_click(x, y, button, pressed):
 
 def write_position():
     dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(dir, 'position.txt')
+
+    data_dir = os.path.join(dir, '..', 'data')
+
+    os.makedirs(data_dir, exist_ok=True)
+
+    file_path = os.path.join(data_dir, 'position.txt')
+
     with open (file_path, 'w') as file:
         for position in mouse_position:
             file.write(f'{position[0]}, {position[1]}\n')

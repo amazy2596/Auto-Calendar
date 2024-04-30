@@ -141,7 +141,7 @@ def auto_calendar(time, name, webname):
                     operate_mouse(int (x['left']) + positions[0][0], int (y['top']) + positions[0][1], time_str, name)
 
 def check_contest_exist(name, time, webname):
-    conn = sqlite3.connect(f'data/{webname}_contests.db')
+    conn = sqlite3.connect(f'../data/{webname}_contests.db')
     cursor = conn.cursor()
     cursor.execute(''' create table if not exists contests(
         time text,
@@ -221,7 +221,7 @@ if __name__ == "__main__":
     url = "https://outlook.live.com/calendar/0/view/month"
     webbrowser.open(url, autoraise = True)
     positions = []
-    with open('get_position/position.txt', 'r') as file:
+    with open('../data/position.txt', 'r') as file:
         for line in file:
             x, y = line.strip().split(',')
             positions.append((int(x), int(y)))
