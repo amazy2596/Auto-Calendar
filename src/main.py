@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from datetime import date
 from urllib import parse
 # import pandas as pd
+import os
 import pyautogui
 import pyperclip
 import sqlite3
@@ -141,7 +142,10 @@ def auto_calendar(time, name, webname):
                     operate_mouse(int (x['left']) + positions[0][0], int (y['top']) + positions[0][1], time_str, name)
 
 def check_contest_exist(name, time, webname):
-    conn = sqlite3.connect(f'../data/{webname}_contests.db')
+    data_dir = os.path.join(os.path.dirname(__file__), '..', 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    database_path = os.path.join(data_dir, f'{webname}_contests.db')
+    conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
     cursor.execute(''' create table if not exists contests(
         time text,
@@ -221,13 +225,19 @@ if __name__ == "__main__":
     url = "https://outlook.live.com/calendar/0/view/month"
     webbrowser.open(url, autoraise = True)
     positions = []
-    with open('../data/position.txt', 'r') as file:
+
+    dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(dir, '..', 'data')
+    os.makedirs(dir, exist_ok=True)
+    file_path = os.path.join(data_dir, 'position.txt')
+
+    with open(file_path, 'r') as file:
         for line in file:
             x, y = line.strip().split(',')
             positions.append((int(x), int(y)))
     sleep(3)
-    get_codeforces_contest()
+    # get_codeforces_contest()
     # get_nowcoder_contest()
-    # get_atcoder_contest()
+    get_atcoder_contest()
     # get_luogu_contest()
     # get_lanqiao_contest()
