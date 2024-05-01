@@ -200,10 +200,14 @@ def get_luogu_contest():
     page = requests.get(url, headers=headers)
     soup = BeautifulSoup(page.content, 'html.parser')
     script_content = soup.find('script').string
+
     start_index = script_content.find('decodeURIComponent("') + len('decodeURIComponent("')
     end_index = script_content.find('")')
+
     encoded_json_string = script_content[start_index:end_index]
-    decoded_json_string = parse.unquote(encoded_json_string).encode('utf-8').decode('unicode_escape').replace('\\/', '/')
+
+    decoded_json_string = parse.unquote(encoded_json_string).encode('utf-8').decode('unicode_escape')
+
     contests = json.loads(decoded_json_string).get('currentData').get('contests').get('result')
     for contest in contests:
         time = contest['startTime']
