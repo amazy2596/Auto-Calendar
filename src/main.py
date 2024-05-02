@@ -206,7 +206,7 @@ def get_luogu_contest():
 
     encoded_json_string = script_content[start_index:end_index]
 
-    decoded_json_string = parse.unquote(encoded_json_string).encode('utf-8').decode('unicode_escape')
+    decoded_json_string = parse.unquote(encoded_json_string).replace(r'\/', '/').encode('utf-8').decode('unicode_escape')
 
     contests = json.loads(decoded_json_string).get('currentData').get('contests').get('result')
     for contest in contests:
