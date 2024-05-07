@@ -32,7 +32,7 @@ class auto_calendar:
         sleep(3)
 
     def get_codeforces_contest(self):
-        url = "https://codeforces.com/contests"
+        url = "https://codeforces.com/contests?complete=true"
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         table = soup.find_all('table')[0]
@@ -51,8 +51,7 @@ class auto_calendar:
         contests = soup.find_all('div', class_="platform-item-main")
         for contest in contests:
             name = contest.find('a', href=True).text
-            time = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}',
-                             contest.find('li', class_="match-time-icon").text.strip()).group(0)
+            time = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}', contest.find('li', class_="match-time-icon").text.strip()).group(0)
             if time > datetime.now().strftime("%Y-%m-%d %H:%M"):
                 operatorr.auto_calendar(name, time, 'nowcoder', self.positions)
 
@@ -63,8 +62,7 @@ class auto_calendar:
         contests = soup.find('div', id="contest-table-upcoming").find('tbody').find_all('tr')
         for contest in contests:
             name = contest.find_all('td')[1].find('a', href=True).text
-            time = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}',
-                             contest.find('time', class_="fixtime-full").text.strip()).group(0)
+            time = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}', contest.find('time', class_="fixtime-full").text.strip()).group(0)
             operatorr.auto_calendar(name, time, 'atcoder', self.positions)
 
     def get_luogu_contest(self):
@@ -78,8 +76,7 @@ class auto_calendar:
         start_index = script_content.find('decodeURIComponent("') + len('decodeURIComponent("')
         end_index = script_content.find('")')
         encoded_json_string = script_content[start_index:end_index]
-        decoded_json_string = parse.unquote(encoded_json_string).encode('utf-8').decode('unicode_escape').replace('\\/',
-                                                                                                                  '/')
+        decoded_json_string = parse.unquote(encoded_json_string).encode('utf-8').decode('unicode_escape').replace('\\/','/')
         contests = json.loads(decoded_json_string).get('currentData').get('contests').get('result')
         for contest in contests:
             time = contest['startTime']

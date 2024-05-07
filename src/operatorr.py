@@ -33,7 +33,6 @@ def operate_mouse(x, y, time, name, positions):
     sleep(1)
     pyautogui.click()
 
-
 def auto_calendar(name, time, webname, positions):
     data_dir = os.path.join(os.path.dirname(__file__), '..', 'data')
     os.makedirs(data_dir, exist_ok=True)
