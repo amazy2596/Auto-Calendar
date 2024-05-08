@@ -8,6 +8,7 @@ import webbrowser
 import operatorr
 import requests
 import json
+import sys
 import os
 import re
 
@@ -21,15 +22,18 @@ class auto_calendar:
 
         dir = os.path.dirname(os.path.abspath(__file__))
         data_dir = os.path.join(dir, '..', 'data')
-        os.makedirs(dir, exist_ok=True)
+        os.makedirs(data_dir, exist_ok=True)
         file_path = os.path.join(data_dir, 'position.txt')
+        try: 
+            with open(file_path, 'r') as file:
+                for line in file:
+                    x, y = line.strip().split(',')
+                    self.positions.append((int(x), int(y)))
+        except FileNotFoundError:
+            print("File not found")
+            sys.exit()
 
-        with open(file_path, 'r') as file:
-            for line in file:
-                x, y = line.strip().split(',')
-                self.positions.append((int(x), int(y)))
-
-        sleep(3)
+        sleep(6)
 
     def get_codeforces_contest(self):
         url = "https://codeforces.com/contests?complete=true"
@@ -37,11 +41,10 @@ class auto_calendar:
         soup = BeautifulSoup(page.content, 'html.parser')
         table = soup.find_all('table')[0]
         rows = table.find_all('tr')
-        contests = []
         for row in rows[1:]:
             cols = row.find_all('td')
             time = cols[2].get_text()
-            name = cols[0].get_text()
+            name = cols[0].get_text().replace("\r\n                \n\r\n                            Enter »\r\n                    \n\n", ' ').strip()
             operatorr.auto_calendar(name, time, 'codeforces', self.positions)
 
     def get_nowcoder_contest(self):
@@ -84,3 +87,14 @@ class auto_calendar:
                 name = contest['name']
                 time = datetime.fromtimestamp(time).strftime("%Y-%m-%d %H:%M")
                 operatorr.auto_calendar(name, time, 'luogu', self.positions)
+
+    def get_lanqiao_contest(self):
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
+        }
+        url = "https://www.lanqiao.cn/oj-contest/"
+        page = requests.get(url, headers=headers)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        pattern = re.compile(r"<div class=\"\">(.*?)</div>")
+        content = re.findall(pattern, page.text)
+        print(content)
