@@ -103,3 +103,6 @@ def parse_time(time, webname):
 
     time_str = date_obj.strftime("%H:%M")
     return date_obj.year, date_obj.month, date_obj.day, time_str
+
+def notification():
+    pyautogui.alert(text='The program has finished running.', title='Notification', button='OK')
