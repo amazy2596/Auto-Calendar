@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
+from plyer import notification
 from datetime import date
 from PIL import ImageGrab
-
+ 
 import pyautogui
 import pytesseract
 import operatorr
@@ -104,5 +105,10 @@ def parse_time(time, webname):
     time_str = date_obj.strftime("%H:%M")
     return date_obj.year, date_obj.month, date_obj.day, time_str
 
-def notification():
-    pyautogui.alert(text='The program has finished running.', title='Notification', button='OK')
+def show_notification():
+    notification.notify(
+        title="Auto Calendar",
+        message="Your program has finished running.",
+        # app_name="Auto Calendar",
+        timeout=10,
+    )

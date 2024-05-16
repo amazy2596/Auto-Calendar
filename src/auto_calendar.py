@@ -45,9 +45,8 @@ class auto_calendar:
             cols = row.find_all('td')
             time = cols[2].get_text()
             name = cols[0].get_text().replace("\r\n                \n\r\n                            Enter »\r\n                    \n\n", ' ').strip()
-            if re.search(r'\(Div. \d\)', name) is not None:
-                if re.search(r'Round \d+ \(Div. \d\)', name) is not None:
-                    operatorr.auto_calendar(name, time, 'codeforces', self.positions)
+            if re.search(r'Round \d+( \(Div. \d\)| \(Rated for Div. \d\))', name) is not None:
+                operatorr.auto_calendar(name, time, 'codeforces', self.positions)
             
 
     def get_nowcoder_contest(self):
