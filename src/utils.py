@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from plyer import notification
 from datetime import date
 from PIL import ImageGrab
- 
+
 import pyautogui
 import pytesseract
 import operatorr
@@ -109,6 +109,5 @@ def show_notification():
     notification.notify(
         title="Auto Calendar",
         message="Your program has finished running.",
-        # app_name="Auto Calendar",
-        timeout=10,
+        timeout=1,
     )

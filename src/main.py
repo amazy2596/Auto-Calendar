@@ -1,12 +1,16 @@
-import auto_calendar
+import threading
+import tasks
 import utils
 
-instance1 = auto_calendar.auto_calendar()
-
-instance1.get_codeforces_contest()
-instance1.get_atcoder_contest()
-instance1.get_nowcoder_contest()
-instance1.get_luogu_contest()
-# instance1.get_lanqiao_contest()
-
-utils.show_notification()
+def main():
+    task_done_event = threading.Event()
+    
+    thread = threading.Thread(target=tasks.get_contests, args=(task_done_event,))
+    thread.start()
+    
+    task_done_event.wait()
+    
+    utils.show_notification()
+    
+if __name__ == "__main__":
+    main()

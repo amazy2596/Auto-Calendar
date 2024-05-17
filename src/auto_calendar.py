@@ -13,7 +13,7 @@ import os
 import re
 
 
-class auto_calendar:
+class AutoCalendar:
     positions = []
 
     def __init__(self):
@@ -33,7 +33,7 @@ class auto_calendar:
             print("File not found")
             sys.exit()
 
-        sleep(6)
+        sleep(10)
 
     def get_codeforces_contest(self):
         url = "https://codeforces.com/contests?complete=true"
