@@ -33,7 +33,7 @@ class AutoCalendar:
             print("File not found")
             sys.exit()
 
-        sleep(10)
+        sleep(5)
 
     def get_codeforces_contest(self):
         url = "https://codeforces.com/contests?complete=true"
