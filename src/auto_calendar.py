@@ -7,6 +7,7 @@ import requests.utils
 import webbrowser
 import operatorr
 import requests
+import utils
 import json
 import sys
 import os
@@ -34,6 +35,8 @@ class AutoCalendar:
             sys.exit()
 
         sleep(5)
+        
+        utils.show_notification("The program has started running.")
 
     def get_codeforces_contest(self):
         url = "https://codeforces.com/contests?complete=true"

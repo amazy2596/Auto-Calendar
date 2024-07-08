@@ -105,9 +105,9 @@ def parse_time(time, webname):
     time_str = date_obj.strftime("%H:%M")
     return date_obj.year, date_obj.month, date_obj.day, time_str
 
-def show_notification():
+def show_notification(str):
     notification.notify(
-        title="Auto Calendar",
-        message="Your program has finished running.",
-        timeout=1,
+        title = "Auto Calendar",
+        message = str,
+        timeout = 1,
     )

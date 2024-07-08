@@ -10,7 +10,7 @@ def main():
     
     task_done_event.wait()
     
-    utils.show_notification()
+    utils.show_notification("The program has finished running.")
     
 if __name__ == "__main__":
     main()
